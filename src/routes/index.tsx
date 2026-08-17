@@ -21,10 +21,22 @@ const notes = [
   { img: `${CDN}/base_notes_orion.webp?v=1782469278&width=800`, label: "Base Notes", value: "Patchouli, Sandalwood, Musk" },
 ];
 
-const variants = [
+const PRICE = 1499;
+
+type CartLine = { name: string; img: string; price: number; qty: number };
+
+const products = [
+  { name: "Orion (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=400` },
   { name: "Noble (100ml)", img: `${CDN}/noble_main.png?v=1786629640&width=400` },
   { name: "Regal (100ml)", img: `${CDN}/regal_main.png?v=1786629639&width=400` },
   { name: "Throne (100ml)", img: `${CDN}/throne_main.png?v=1786629639&width=400` },
+];
+
+const sections = [
+  { id: "description", label: "Description" },
+  { id: "notes", label: "Notes" },
+  { id: "apply", label: "How to apply" },
+  { id: "faqs", label: "FAQs" },
 ];
 
 const faqs = [
@@ -108,6 +120,41 @@ function Index() {
   const [active, setActive] = useState(0);
   const [qty, setQty] = useState(1);
   const [open, setOpen] = useState<number | null>(0);
+  const [selected, setSelected] = useState(0);
+  const [cart, setCart] = useState<CartLine[]>([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [added, setAdded] = useState(false);
+  const [zoom, setZoom] = useState(false);
+
+  const product = products[selected]!;
+  const cartCount = cart.reduce((n, l) => n + l.qty, 0);
+  const cartTotal = cart.reduce((n, l) => n + l.qty * l.price, 0);
+
+  const scrollTo = (id: string) => {
+    setMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const addToCart = () => {
+    setCart((prev) => {
+      const found = prev.find((l) => l.name === product.name);
+      if (found) {
+        return prev.map((l) => (l.name === product.name ? { ...l, qty: l.qty + qty } : l));
+      }
+      return [...prev, { name: product.name, img: product.img, price: PRICE, qty }];
+    });
+    setAdded(true);
+    setCartOpen(true);
+    window.setTimeout(() => setAdded(false), 1800);
+  };
+
+  const setLineQty = (name: string, next: number) =>
+    setCart((prev) =>
+      next <= 0
+        ? prev.filter((l) => l.name !== name)
+        : prev.map((l) => (l.name === name ? { ...l, qty: next } : l)),
+    );
 
   return (
     <div className="min-h-screen bg-background">
@@ -117,29 +164,75 @@ function Index() {
 
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <span className="font-display text-2xl tracking-[0.4em] text-primary">SARKAR</span>
+          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-display text-2xl tracking-[0.4em] text-primary">
+            SARKAR
+          </button>
           <nav className="hidden gap-8 text-xs tracking-[0.18em] uppercase text-muted-foreground md:flex">
-            <a href="#description" className="transition-colors hover:text-foreground">Description</a>
-            <a href="#notes" className="transition-colors hover:text-foreground">Notes</a>
-            <a href="#apply" className="transition-colors hover:text-foreground">How to apply</a>
-            <a href="#faqs" className="transition-colors hover:text-foreground">FAQs</a>
+            {sections.map((s) => (
+              <button key={s.id} onClick={() => scrollTo(s.id)} className="transition-colors hover:text-foreground">
+                {s.label}
+              </button>
+            ))}
           </nav>
-          <span className="text-xs tracking-[0.18em] uppercase text-muted-foreground">Cart (0)</span>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setCartOpen(true)}
+              className="text-xs tracking-[0.18em] uppercase text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Cart ({cartCount})
+            </button>
+            <button
+              onClick={() => setMenuOpen((m) => !m)}
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+              className="text-lg text-muted-foreground md:hidden"
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
+          </div>
         </div>
+        {menuOpen && (
+          <nav className="border-t border-border/60 px-5 py-3 md:hidden">
+            {sections.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => scrollTo(s.id)}
+                className="block w-full py-2 text-left text-xs tracking-[0.18em] uppercase text-muted-foreground"
+              >
+                {s.label}
+              </button>
+            ))}
+          </nav>
+        )}
       </header>
 
       <main>
         {/* Product */}
         <section className="mx-auto grid max-w-6xl gap-10 px-5 py-10 md:grid-cols-2 md:py-16">
           <div>
-            <div className="overflow-hidden rounded-lg border border-border bg-card">
+            <div className="relative overflow-hidden rounded-lg border border-border bg-card">
               <img
                 src={gallery[active]!.src}
                 alt={gallery[active]!.alt}
-                className="h-full w-full object-cover"
+                onClick={() => setZoom(true)}
+                className="h-full w-full cursor-zoom-in object-cover"
                 width={1200}
                 height={1200}
               />
+              <button
+                onClick={() => setActive((i) => (i - 1 + gallery.length) % gallery.length)}
+                aria-label="Previous image"
+                className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full border border-border bg-background/70 px-3 py-2 text-sm backdrop-blur transition-colors hover:border-primary"
+              >
+                ‹
+              </button>
+              <button
+                onClick={() => setActive((i) => (i + 1) % gallery.length)}
+                aria-label="Next image"
+                className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full border border-border bg-background/70 px-3 py-2 text-sm backdrop-blur transition-colors hover:border-primary"
+              >
+                ›
+              </button>
             </div>
             <div className="mt-3 grid grid-cols-5 gap-2">
               {gallery.map((g, i) => (
@@ -158,7 +251,9 @@ function Index() {
           </div>
 
           <div className="md:pt-4">
-            <h1 className="font-display text-5xl md:text-6xl">Orion <span className="text-muted-foreground">(100ml)</span></h1>
+            <h1 className="font-display text-5xl md:text-6xl">
+              {product.name.split(" ")[0]} <span className="text-muted-foreground">(100ml)</span>
+            </h1>
             <div className="mt-4 flex flex-wrap gap-2">
               {["Unisex", "Fresh", "Parfum"].map((t) => (
                 <span key={t} className="rounded-full border border-border px-3 py-1 text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground">
@@ -172,22 +267,25 @@ function Index() {
             </p>
 
             <div className="mt-7 flex items-baseline gap-3">
-              <span className="text-3xl">₹ 1,499</span>
+              <span className="text-3xl">₹ {PRICE.toLocaleString("en-IN")}</span>
               <span className="text-xs text-muted-foreground">Incl. of all taxes</span>
             </div>
 
             <div className="mt-8">
               <p className="eyebrow">Choose variants</p>
-              <div className="mt-3 grid grid-cols-3 gap-3">
-                {variants.map((v) => (
-                  <a
+              <div className="mt-3 grid grid-cols-4 gap-3">
+                {products.map((v, i) => (
+                  <button
                     key={v.name}
-                    href={`https://www.sarkar.store/products/${v.name.split(" ")[0]!.toLowerCase()}`}
-                    className="rounded border border-border bg-card p-2 text-center transition-colors hover:border-primary"
+                    onClick={() => setSelected(i)}
+                    aria-pressed={i === selected}
+                    className={`rounded border bg-card p-2 text-center transition-colors ${
+                      i === selected ? "border-primary" : "border-border hover:border-primary/60"
+                    }`}
                   >
                     <img src={v.img} alt={v.name} loading="lazy" className="aspect-square w-full object-contain" />
                     <span className="mt-1 block text-[0.7rem] text-muted-foreground">{v.name}</span>
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
@@ -198,13 +296,17 @@ function Index() {
                 <span className="w-8 text-center text-sm">{qty}</span>
                 <button onClick={() => setQty((q) => q + 1)} aria-label="Increase quantity" className="px-4 py-3 text-muted-foreground hover:text-foreground">+</button>
               </div>
-              <button className="flex-1 rounded bg-primary px-8 py-3.5 text-xs font-semibold tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-90">
-                Add to cart
+              <button
+                onClick={addToCart}
+                className="flex-1 rounded bg-primary px-8 py-3.5 text-xs font-semibold tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                {added ? "Added ✓" : "Add to cart"}
               </button>
             </div>
             <p className="mt-4 text-xs text-muted-foreground">* Ships within 24-36 hours of ordering.</p>
           </div>
         </section>
+
 
         {/* Description */}
         <section id="description" className="border-t border-border/60 py-16">
@@ -316,9 +418,83 @@ function Index() {
       <footer className="border-t border-border/60 py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-5">
           <span className="font-display text-xl tracking-[0.4em] text-primary">SARKAR</span>
+          <p className="text-xs text-muted-foreground">
+            <a href="mailto:support@sarkar.store" className="hover:text-foreground">support@sarkar.store</a>
+            {" · "}
+            <a href="tel:+919217755755" className="hover:text-foreground">+91 92177 55755</a>
+          </p>
           <p className="text-xs text-muted-foreground">www.sarkar.store · Made in India</p>
         </div>
       </footer>
+
+      {/* Image lightbox */}
+      {zoom && (
+        <div
+          className="fixed inset-0 z-40 flex items-center justify-center bg-background/95 p-6"
+          onClick={() => setZoom(false)}
+        >
+          <button onClick={() => setZoom(false)} aria-label="Close image" className="absolute top-5 right-6 text-2xl text-muted-foreground">
+            ✕
+          </button>
+          <img src={gallery[active]!.src} alt={gallery[active]!.alt} className="max-h-full max-w-3xl rounded-lg object-contain" />
+        </div>
+      )}
+
+      {/* Cart drawer */}
+      {cartOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          <div className="absolute inset-0 bg-background/70" onClick={() => setCartOpen(false)} />
+          <aside className="relative flex h-full w-full max-w-sm flex-col border-l border-border bg-card">
+            <div className="flex items-center justify-between border-b border-border px-5 py-4">
+              <h2 className="text-lg">Your cart ({cartCount})</h2>
+              <button onClick={() => setCartOpen(false)} aria-label="Close cart" className="text-xl text-muted-foreground hover:text-foreground">✕</button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-5 py-4">
+              {cart.length === 0 ? (
+                <p className="mt-10 text-center text-sm text-muted-foreground">Your cart is empty.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {cart.map((l) => (
+                    <li key={l.name} className="flex gap-3 border-b border-border pb-4">
+                      <img src={l.img} alt={l.name} className="h-20 w-20 rounded border border-border object-contain" />
+                      <div className="flex-1">
+                        <p className="text-sm">{l.name}</p>
+                        <p className="mt-1 text-xs text-muted-foreground">₹ {l.price.toLocaleString("en-IN")}</p>
+                        <div className="mt-2 flex items-center gap-3">
+                          <div className="flex items-center rounded border border-border">
+                            <button onClick={() => setLineQty(l.name, l.qty - 1)} aria-label={`Decrease ${l.name}`} className="px-2.5 py-1 text-muted-foreground hover:text-foreground">−</button>
+                            <span className="w-6 text-center text-xs">{l.qty}</span>
+                            <button onClick={() => setLineQty(l.name, l.qty + 1)} aria-label={`Increase ${l.name}`} className="px-2.5 py-1 text-muted-foreground hover:text-foreground">+</button>
+                          </div>
+                          <button onClick={() => setLineQty(l.name, 0)} className="text-xs text-muted-foreground underline hover:text-foreground">
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            <div className="border-t border-border px-5 py-4">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span>₹ {cartTotal.toLocaleString("en-IN")}</span>
+              </div>
+              <p className="mt-1 text-xs text-muted-foreground">Incl. of all taxes · 2 free 7ml samples added</p>
+              <button
+                disabled={cart.length === 0}
+                onClick={() => setCartOpen(false)}
+                className="mt-4 w-full rounded bg-primary px-6 py-3 text-xs font-semibold tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
+              >
+                Checkout
+              </button>
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
