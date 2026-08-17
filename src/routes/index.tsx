@@ -21,10 +21,22 @@ const notes = [
   { img: `${CDN}/base_notes_orion.webp?v=1782469278&width=800`, label: "Base Notes", value: "Patchouli, Sandalwood, Musk" },
 ];
 
-const variants = [
+const PRICE = 1499;
+
+type CartLine = { name: string; img: string; price: number; qty: number };
+
+const products = [
+  { name: "Orion (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=400` },
   { name: "Noble (100ml)", img: `${CDN}/noble_main.png?v=1786629640&width=400` },
   { name: "Regal (100ml)", img: `${CDN}/regal_main.png?v=1786629639&width=400` },
   { name: "Throne (100ml)", img: `${CDN}/throne_main.png?v=1786629639&width=400` },
+];
+
+const sections = [
+  { id: "description", label: "Description" },
+  { id: "notes", label: "Notes" },
+  { id: "apply", label: "How to apply" },
+  { id: "faqs", label: "FAQs" },
 ];
 
 const faqs = [
