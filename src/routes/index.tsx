@@ -66,17 +66,17 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Orion (100ml) — Sarkar Parfum | Citrus, Lavender & Musk" },
+      { title: "sarkar orion perfume" },
       {
         name: "description",
         content:
           "Orion by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499.",
       },
-      { property: "og:title", content: "Orion (100ml) — Sarkar Parfum" },
+      { property: "og:title", content: "sarkar orion perfume" },
       {
         property: "og:description",
         content:
-          "Bright citrus, balanced geranium, and a lasting musk-sandalwood trail. The everyday parfum. ₹1,499.",
+          "Orion by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499.",
       },
       { property: "og:type", content: "product" },
       { property: "og:url", content: "/" },

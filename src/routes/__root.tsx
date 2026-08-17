@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "sarkar orion perfume" },
+      { name: "description", content: "Orion by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "sarkar orion perfume" },
+      { property: "og:description", content: "Orion by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "sarkar orion perfume" },
+      { name: "twitter:description", content: "Orion by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9aefacde08967d7c2ef0ae4ba76660df/id-preview-8c57ec61--96965d3f-328a-478b-91c0-1e7c9c8d2d1e.lovable.app-1786938327162.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9aefacde08967d7c2ef0ae4ba76660df/id-preview-8c57ec61--96965d3f-328a-478b-91c0-1e7c9c8d2d1e.lovable.app-1786938327162.png" },
     ],
     links: [
       {
