@@ -418,9 +418,83 @@ function Index() {
       <footer className="border-t border-border/60 py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-5">
           <span className="font-display text-xl tracking-[0.4em] text-primary">SARKAR</span>
+          <p className="text-xs text-muted-foreground">
+            <a href="mailto:support@sarkar.store" className="hover:text-foreground">support@sarkar.store</a>
+            {" · "}
+            <a href="tel:+919217755755" className="hover:text-foreground">+91 92177 55755</a>
+          </p>
           <p className="text-xs text-muted-foreground">www.sarkar.store · Made in India</p>
         </div>
       </footer>
+
+      {/* Image lightbox */}
+      {zoom && (
+        <div
+          className="fixed inset-0 z-40 flex items-center justify-center bg-background/95 p-6"
+          onClick={() => setZoom(false)}
+        >
+          <button onClick={() => setZoom(false)} aria-label="Close image" className="absolute top-5 right-6 text-2xl text-muted-foreground">
+            ✕
+          </button>
+          <img src={gallery[active]!.src} alt={gallery[active]!.alt} className="max-h-full max-w-3xl rounded-lg object-contain" />
+        </div>
+      )}
+
+      {/* Cart drawer */}
+      {cartOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          <div className="absolute inset-0 bg-background/70" onClick={() => setCartOpen(false)} />
+          <aside className="relative flex h-full w-full max-w-sm flex-col border-l border-border bg-card">
+            <div className="flex items-center justify-between border-b border-border px-5 py-4">
+              <h2 className="text-lg">Your cart ({cartCount})</h2>
+              <button onClick={() => setCartOpen(false)} aria-label="Close cart" className="text-xl text-muted-foreground hover:text-foreground">✕</button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-5 py-4">
+              {cart.length === 0 ? (
+                <p className="mt-10 text-center text-sm text-muted-foreground">Your cart is empty.</p>
+              ) : (
+                <ul className="space-y-4">
+                  {cart.map((l) => (
+                    <li key={l.name} className="flex gap-3 border-b border-border pb-4">
+                      <img src={l.img} alt={l.name} className="h-20 w-20 rounded border border-border object-contain" />
+                      <div className="flex-1">
+                        <p className="text-sm">{l.name}</p>
+                        <p className="mt-1 text-xs text-muted-foreground">₹ {l.price.toLocaleString("en-IN")}</p>
+                        <div className="mt-2 flex items-center gap-3">
+                          <div className="flex items-center rounded border border-border">
+                            <button onClick={() => setLineQty(l.name, l.qty - 1)} aria-label={`Decrease ${l.name}`} className="px-2.5 py-1 text-muted-foreground hover:text-foreground">−</button>
+                            <span className="w-6 text-center text-xs">{l.qty}</span>
+                            <button onClick={() => setLineQty(l.name, l.qty + 1)} aria-label={`Increase ${l.name}`} className="px-2.5 py-1 text-muted-foreground hover:text-foreground">+</button>
+                          </div>
+                          <button onClick={() => setLineQty(l.name, 0)} className="text-xs text-muted-foreground underline hover:text-foreground">
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            <div className="border-t border-border px-5 py-4">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">Subtotal</span>
+                <span>₹ {cartTotal.toLocaleString("en-IN")}</span>
+              </div>
+              <p className="mt-1 text-xs text-muted-foreground">Incl. of all taxes · 2 free 7ml samples added</p>
+              <button
+                disabled={cart.length === 0}
+                onClick={() => setCartOpen(false)}
+                className="mt-4 w-full rounded bg-primary px-6 py-3 text-xs font-semibold tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
+              >
+                Checkout
+              </button>
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
