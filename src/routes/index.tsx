@@ -134,8 +134,8 @@ function Index() {
           <div>
             <div className="overflow-hidden rounded-lg border border-border bg-card">
               <img
-                src={gallery[active].src}
-                alt={gallery[active].alt}
+                src={gallery[active]!.src}
+                alt={gallery[active]!.alt}
                 className="h-full w-full object-cover"
                 width={1200}
                 height={1200}
@@ -182,7 +182,7 @@ function Index() {
                 {variants.map((v) => (
                   <a
                     key={v.name}
-                    href={`https://www.sarkar.store/products/${v.name.split(" ")[0].toLowerCase()}`}
+                    href={`https://www.sarkar.store/products/${v.name.split(" ")[0]!.toLowerCase()}`}
                     className="rounded border border-border bg-card p-2 text-center transition-colors hover:border-primary"
                   >
                     <img src={v.img} alt={v.name} loading="lazy" className="aspect-square w-full object-contain" />
