@@ -1,24 +1,324 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+const CDN = "https://www.sarkar.store/cdn/shop/files";
+
+const gallery = [
+  { src: `${CDN}/orion_main_1.png?v=1786629639&width=1200`, alt: "Sarkar Orion 100ml parfum bottle" },
+  { src: `${CDN}/packaging_2.webp?v=1782468831&width=1200`, alt: "Orion parfum packaging box" },
+  { src: `${CDN}/BB_ORION_NEW_1.png?v=1784828173&width=1200`, alt: "Bhuvan Bam with Sarkar Orion" },
+  { src: `${CDN}/formulated_orion_1574ae34-e97d-46dc-9250-f33d23a7ad6a.webp?v=1785563197&width=1200`, alt: "Orion formulated in France" },
+  { src: `${CDN}/Ingredients_Orion_1.png?v=1784541893&width=1200`, alt: "Orion fragrance ingredients" },
+  { src: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=1200`, alt: "Orion bottle detail" },
+  { src: `${CDN}/7th.webp?v=1782468881&width=1200`, alt: "Orion editorial shot" },
+  { src: `${CDN}/4_bottle_shot_2.webp?v=1782468881&width=1200`, alt: "Orion bottle shot" },
+  { src: `${CDN}/last_3.webp?v=1782476698&width=1200`, alt: "Orion campaign image" },
+];
+
+const notes = [
+  { img: `${CDN}/top_notes_orion.webp?v=1782469278&width=800`, label: "Top Notes", value: "Lavender, Lemon" },
+  { img: `${CDN}/middle_notes_orion.webp?v=1782469278&width=800`, label: "Heart Notes", value: "Geranium, Rose, Cherry" },
+  { img: `${CDN}/base_notes_orion.webp?v=1782469278&width=800`, label: "Base Notes", value: "Patchouli, Sandalwood, Musk" },
+];
+
+const variants = [
+  { name: "Noble (100ml)", img: `${CDN}/noble_main.png?v=1786629640&width=400` },
+  { name: "Regal (100ml)", img: `${CDN}/regal_main.png?v=1786629639&width=400` },
+  { name: "Throne (100ml)", img: `${CDN}/throne_main.png?v=1786629639&width=400` },
+];
+
+const faqs = [
+  {
+    q: "How long does Orion last?",
+    a: "Orion is a parfum at 25% oil concentration so it stays close and lasts long up to 8 hours depending on your skin, the weather and how much you apply.",
+  },
+  {
+    q: "What does Orion smell like?",
+    a: "Fresh and clean. It opens with lemon and lavender then softens with geranium and rose before settling into sandalwood and musk. The kind of scent that keeps up with you.",
+  },
+  {
+    q: "Can I wear Orion every day?",
+    a: "Yes. This is the everyday one fresh and easy and it carries you from work to travel and everything in between.",
+  },
+  {
+    q: "Summer or winter?",
+    a: "Both. Orion is at its best on warm days. Its citrus opening feels light and cooling and it wears well all year.",
+  },
+  {
+    q: "When should I wear Orion?",
+    a: "Any day you want to feel fresh and ahead. Mornings, work, travel or just the everyday.",
+  },
+];
+
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Orion (100ml) — Sarkar Parfum | Citrus, Lavender & Musk" },
+      {
+        name: "description",
+        content:
+          "Orion by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499.",
+      },
+      { property: "og:title", content: "Orion (100ml) — Sarkar Parfum" },
+      {
+        property: "og:description",
+        content:
+          "Bright citrus, balanced geranium, and a lasting musk-sandalwood trail. The everyday parfum. ₹1,499.",
+      },
+      { property: "og:type", content: "product" },
+      { property: "og:url", content: "/" },
+      { property: "og:image", content: `${CDN}/orion_main_1.png?v=1786629639&width=1200` },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${CDN}/orion_main_1.png?v=1786629639&width=1200` },
+    ],
+    links: [
+      { rel: "canonical", href: "/" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Karla:wght@300;400;500;600&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: "Orion (100ml)",
+          image: [`${CDN}/orion_main_1.png?v=1786629639&width=1200`],
+          description:
+            "Bright citrus opens with vibrant energy. Geranium brings balance, while musk and sandalwood leave a fresh, lasting trail.",
+          brand: { "@type": "Brand", name: "Sarkar" },
+          offers: {
+            "@type": "Offer",
+            price: "1499",
+            priceCurrency: "INR",
+            availability: "https://schema.org/InStock",
+          },
+        }),
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [active, setActive] = useState(0);
+  const [qty, setQty] = useState(1);
+  const [open, setOpen] = useState<number | null>(0);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background">
+      <div className="bg-primary py-2 text-center text-[0.65rem] tracking-[0.22em] uppercase text-primary-foreground">
+        Claim two 7ml freebies with every order
+      </div>
+
+      <header className="sticky top-0 z-20 border-b border-border/60 bg-background/85 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
+          <span className="font-display text-2xl tracking-[0.4em] text-primary">SARKAR</span>
+          <nav className="hidden gap-8 text-xs tracking-[0.18em] uppercase text-muted-foreground md:flex">
+            <a href="#description" className="transition-colors hover:text-foreground">Description</a>
+            <a href="#notes" className="transition-colors hover:text-foreground">Notes</a>
+            <a href="#apply" className="transition-colors hover:text-foreground">How to apply</a>
+            <a href="#faqs" className="transition-colors hover:text-foreground">FAQs</a>
+          </nav>
+          <span className="text-xs tracking-[0.18em] uppercase text-muted-foreground">Cart (0)</span>
+        </div>
+      </header>
+
+      <main>
+        {/* Product */}
+        <section className="mx-auto grid max-w-6xl gap-10 px-5 py-10 md:grid-cols-2 md:py-16">
+          <div>
+            <div className="overflow-hidden rounded-lg border border-border bg-card">
+              <img
+                src={gallery[active]!.src}
+                alt={gallery[active]!.alt}
+                className="h-full w-full object-cover"
+                width={1200}
+                height={1200}
+              />
+            </div>
+            <div className="mt-3 grid grid-cols-5 gap-2">
+              {gallery.map((g, i) => (
+                <button
+                  key={g.src}
+                  onClick={() => setActive(i)}
+                  aria-label={`View image ${i + 1}`}
+                  className={`overflow-hidden rounded border transition-opacity ${
+                    i === active ? "border-primary" : "border-border opacity-60 hover:opacity-100"
+                  }`}
+                >
+                  <img src={g.src} alt={g.alt} loading="lazy" className="aspect-square w-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="md:pt-4">
+            <h1 className="font-display text-5xl md:text-6xl">Orion <span className="text-muted-foreground">(100ml)</span></h1>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {["Unisex", "Fresh", "Parfum"].map((t) => (
+                <span key={t} className="rounded-full border border-border px-3 py-1 text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground">
+                  {t}
+                </span>
+              ))}
+            </div>
+            <p className="mt-5 text-sm text-muted-foreground">Workdays · Morning runs · The everyday</p>
+            <p className="mt-2 font-display text-2xl text-primary">
+              It smells like citrus, lavender and early wins.
+            </p>
+
+            <div className="mt-7 flex items-baseline gap-3">
+              <span className="text-3xl">₹ 1,499</span>
+              <span className="text-xs text-muted-foreground">Incl. of all taxes</span>
+            </div>
+
+            <div className="mt-8">
+              <p className="eyebrow">Choose variants</p>
+              <div className="mt-3 grid grid-cols-3 gap-3">
+                {variants.map((v) => (
+                  <a
+                    key={v.name}
+                    href={`https://www.sarkar.store/products/${v.name.split(" ")[0]!.toLowerCase()}`}
+                    className="rounded border border-border bg-card p-2 text-center transition-colors hover:border-primary"
+                  >
+                    <img src={v.img} alt={v.name} loading="lazy" className="aspect-square w-full object-contain" />
+                    <span className="mt-1 block text-[0.7rem] text-muted-foreground">{v.name}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="flex items-center rounded border border-border">
+                <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Decrease quantity" className="px-4 py-3 text-muted-foreground hover:text-foreground">−</button>
+                <span className="w-8 text-center text-sm">{qty}</span>
+                <button onClick={() => setQty((q) => q + 1)} aria-label="Increase quantity" className="px-4 py-3 text-muted-foreground hover:text-foreground">+</button>
+              </div>
+              <button className="flex-1 rounded bg-primary px-8 py-3.5 text-xs font-semibold tracking-[0.2em] uppercase text-primary-foreground transition-opacity hover:opacity-90">
+                Add to cart
+              </button>
+            </div>
+            <p className="mt-4 text-xs text-muted-foreground">* Ships within 24-36 hours of ordering.</p>
+          </div>
+        </section>
+
+        {/* Description */}
+        <section id="description" className="border-t border-border/60 py-16">
+          <div className="mx-auto max-w-3xl px-5 text-center">
+            <p className="eyebrow">Product Description</p>
+            <h2 className="mt-4 text-4xl">The everyday fresh</h2>
+            <p className="mt-6 text-muted-foreground">
+              Bright citrus opens with vibrant energy. Geranium brings balance, while musk and
+              sandalwood leave a fresh, lasting trail.
+            </p>
+            <p className="mt-4 text-muted-foreground">
+              Orion by Sarkar, from Bhuvan Bam's fragrance collection, is for the ones who move
+              through every day with purpose and effortless confidence.
+            </p>
+          </div>
+        </section>
+
+        {/* Notes */}
+        <section id="notes" className="pb-16">
+          <div className="mx-auto grid max-w-6xl gap-8 px-5 md:grid-cols-3">
+            {notes.map((n) => (
+              <article key={n.label} className="overflow-hidden rounded-lg border border-border bg-card text-center">
+                <img src={n.img} alt={`${n.label}: ${n.value}`} loading="lazy" className="aspect-4/3 w-full object-cover" />
+                <div className="p-6">
+                  <h3 className="text-sm tracking-[0.24em] uppercase text-primary">{n.label}</h3>
+                  <p className="mt-2 font-display text-2xl">{n.value}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Editorial */}
+        <section className="pb-16">
+          <div className="mx-auto max-w-6xl px-5">
+            <img
+              src={`${CDN}/formulated_full_orion_1.webp?v=1785903788&width=1500`}
+              alt="Orion formulated with imported French oils"
+              loading="lazy"
+              className="w-full rounded-lg"
+            />
+            <div className="mt-6 grid gap-6 md:grid-cols-3">
+              {["1_2.webp?v=1782469376", "orion_2_ae21bdea-92d4-4b1b-a1f2-2d6ee141dfd5.webp?v=1785562318", "3_2.webp?v=1782469376"].map((f) => (
+                <img key={f} src={`${CDN}/${f}&width=900`} alt="Orion campaign imagery" loading="lazy" className="w-full rounded-lg" />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How to apply */}
+        <section id="apply" className="border-t border-border/60 py-16">
+          <div className="mx-auto max-w-6xl px-5 text-center">
+            <p className="eyebrow">How To Apply</p>
+            <h2 className="mt-4 mb-8 text-4xl">Spray, don't rub</h2>
+            <img
+              src={`${CDN}/Orion_6.png?v=1784547029&width=1920`}
+              alt="How to apply Orion parfum"
+              loading="lazy"
+              className="w-full rounded-lg"
+            />
+            <p className="mx-auto mt-6 max-w-xl text-sm text-muted-foreground">
+              For best results, spray the perfume 15-20 cm away from your body, targeting pulse
+              points such as the neck and wrists.
+            </p>
+          </div>
+        </section>
+
+        {/* FAQs */}
+        <section id="faqs" className="border-t border-border/60 py-16">
+          <div className="mx-auto max-w-3xl px-5">
+            <p className="eyebrow text-center">FAQs</p>
+            <h2 className="mt-4 mb-8 text-center text-4xl">Good to know</h2>
+            <div className="divide-y divide-border border-y border-border">
+              {faqs.map((f, i) => (
+                <div key={f.q}>
+                  <button
+                    onClick={() => setOpen(open === i ? null : i)}
+                    className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                    aria-expanded={open === i}
+                  >
+                    <span className="text-sm">{f.q}</span>
+                    <span className="text-primary">{open === i ? "−" : "+"}</span>
+                  </button>
+                  {open === i && <p className="pb-5 text-sm text-muted-foreground">{f.a}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Legal */}
+        <section className="border-t border-border/60 py-16">
+          <div className="mx-auto max-w-3xl px-5">
+            <p className="eyebrow">Legal Information</p>
+            <h2 className="mt-4 text-3xl">SARKAR The One &amp; Only: Parfum</h2>
+            <dl className="mt-6 space-y-3 text-sm text-muted-foreground">
+              <div><dt className="inline text-foreground">Alcohol Content: </dt><dd className="inline">Ethyl Alcohol Content: [95% v/v] Content: 75% w/w denatured with t-Butyl Alcohol and Denatonium Benzoate.</dd></div>
+              <div><dt className="inline text-foreground">Ingredients: </dt><dd className="inline">Alcohol Denat., Fragrance</dd></div>
+              <div><dt className="inline text-foreground">Caution: </dt><dd className="inline">For external use only. Avoid contact with eyes and irritated skin. Keep away from heat and flame. Store in a cool, dry place away from direct sunlight. Keep out of reach of children. Best before 3 years from the manufacturing date, specified on the pack.</dd></div>
+              <div><dt className="inline text-foreground">Manufactured by: </dt><dd className="inline">Stella Indusstries Limited, Old Khandsa Road, Sector 37, HSIIDC, Gurugram 122 004, Haryana, India. M. L. No.: M.123-Cos-(H). Permit No.: L-42-A.</dd></div>
+              <div><dt className="inline text-foreground">Marketed and Distributed by: </dt><dd className="inline">Brix Lifestyle Pvt. Ltd., Ground Floor, 241, Westend Marg, Saidulajab, New Delhi, Delhi- 110030, India.</dd></div>
+              <div><dt className="inline text-foreground">Net Content: </dt><dd className="inline">e100 ml / 3.38 fl.oz · Country of origin: Made in India · MRP: ₹ 1,499.00</dd></div>
+              <div><dt className="inline text-foreground">Customer Care: </dt><dd className="inline">+91 92177 55755 · support@sarkar.store</dd></div>
+            </dl>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-border/60 py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-5">
+          <span className="font-display text-xl tracking-[0.4em] text-primary">SARKAR</span>
+          <p className="text-xs text-muted-foreground">www.sarkar.store · Made in India</p>
+        </div>
+      </footer>
     </div>
   );
 }
