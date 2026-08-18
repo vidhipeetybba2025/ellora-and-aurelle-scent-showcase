@@ -13,8 +13,8 @@
       --ink: #111313;
       --paper: #f4f0e7;
       --muted: #aaa9a2;
-      --elora: #526bc9;
-      --aurelle: #cb894f;
+      --elora: #176d63;
+      --aurelle: #a62943;
     }
     * { box-sizing: border-box; }
     html { background: var(--ink); }
@@ -43,12 +43,16 @@
     .body { width: 100%; height: 222px; margin: -5px auto 0; border-radius: 47% 47% 17% 17% / 22% 22% 10% 10%; background: linear-gradient(105deg, rgba(255,255,255,.38), transparent 22%, rgba(0,0,0,.15) 78%), currentColor; border: 1px solid rgba(255,255,255,.22); position: relative; overflow: hidden; }
     .body::before { content: "ORION"; position: absolute; top: 64px; left: 0; width: 100%; text-align: center; color: rgba(255,255,255,.9); font: 500 12px "Playfair Display", serif; letter-spacing: .19em; }
     .body::after { content: attr(data-name); position: absolute; top: 89px; left: 0; width: 100%; text-align: center; color: rgba(255,255,255,.87); font-size: 9px; letter-spacing: .18em; }
+    .queen .crown { width: 64%; height: 61px; border-radius: 0; clip-path: polygon(0 100%, 6% 20%, 27% 53%, 38% 0, 50% 46%, 62% 0, 73% 53%, 94% 20%, 100% 100%); }
+    .bishop .crown { width: 48%; height: 62px; border-radius: 50% 50% 42% 42%; position: relative; }
+    .bishop .crown::after { content: ""; position: absolute; top: 5px; left: 48%; width: 3px; height: 52px; background: rgba(30,0,8,.52); transform: rotate(35deg); }
     .elora { color: var(--elora); transform: translateY(28px) rotate(-3deg); }
     .aurelle { color: var(--aurelle); transform: translateY(-8px) rotate(3deg); }
     .details { align-self: center; display: grid; gap: 42px; padding-left: 15px; }
     .note { border-left: 1px solid #555; padding-left: 16px; }
     .note strong { display: block; margin-bottom: 8px; font-family: "Playfair Display", serif; font-size: 25px; font-weight: 500; letter-spacing: -.03em; }
     .note span { color: var(--muted); line-height: 1.7; font-size: 10px; }
+    .price { display: block; margin-top: 12px; color: var(--paper); font-size: 12px; letter-spacing: .13em; }
     footer { border-top: 1px solid #343636; padding-top: 16px; display: flex; justify-content: space-between; color: var(--muted); text-transform: uppercase; font-size: 9px; }
     @media (max-width: 760px) {
       .page { padding: 22px; }
@@ -73,12 +77,12 @@
         <p>Two sculptural fragrances, cast in the language of the chessboard. Each move begins with intention.</p>
       </div>
       <div class="bottles" aria-label="Elora and Aurelle chess-piece perfume bottles">
-        <div class="bottle elora"><div class="crown"></div><div class="neck"></div><div class="orb"></div><div class="collar"></div><div class="body" data-name="ELORA"></div></div>
-        <div class="bottle aurelle"><div class="crown"></div><div class="neck"></div><div class="orb"></div><div class="collar"></div><div class="body" data-name="AURELLE"></div></div>
+        <div class="bottle elora queen"><div class="crown"></div><div class="neck"></div><div class="orb"></div><div class="collar"></div><div class="body" data-name="ELORA"></div></div>
+        <div class="bottle aurelle bishop"><div class="crown"></div><div class="neck"></div><div class="orb"></div><div class="collar"></div><div class="body" data-name="AURELLE"></div></div>
       </div>
       <div class="details">
-        <div class="note"><strong>Elora</strong><span>Cool iris · cedarwood · white musk<br>Electric cobalt glass</span></div>
-        <div class="note"><strong>Aurelle</strong><span>Saffron · amber · smoked vanilla<br>Burnished amber glass</span></div>
+        <div class="note"><strong>Elora</strong><span>Green tea · jasmine · sandalwood<br>Deep emerald glass<br><b class="price">₹4,200 / 50 ML</b></span></div>
+        <div class="note"><strong>Aurelle</strong><span>Rose absolute · plum · dark oud<br>Crimson lacquer glass<br><b class="price">₹4,800 / 50 ML</b></span></div>
       </div>
     </section>
     <footer><span>Made for the considered move</span><span>© Orion Maison</span></footer>
