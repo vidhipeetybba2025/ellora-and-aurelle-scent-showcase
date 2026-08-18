@@ -32,7 +32,7 @@ const notes = [
 
 const PRICE = 1499;
 
-type CartLine = { name: string; img: string; price: number; qty: number };
+type CartLine = { name: string; img: string; price: number; qty: number; tint: boolean };
 
 const products = [
   { name: "Élora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=240`, tint: false },
