@@ -3,17 +3,26 @@ import { useState } from "react";
 
 const CDN = "https://www.sarkar.store/cdn/shop/files";
 
-const gallery = [
-  { src: `${CDN}/orion_main_1.png?v=1786629639&width=1200`, alt: "Sarkar Élora 100ml parfum bottle" },
-  { src: `${CDN}/packaging_2.webp?v=1782468831&width=1200`, alt: "Élora parfum packaging box" },
-  { src: `${CDN}/BB_ORION_NEW_1.png?v=1784828173&width=1200`, alt: "Bhuvan Bam with Sarkar Élora" },
-  { src: `${CDN}/formulated_orion_1574ae34-e97d-46dc-9250-f33d23a7ad6a.webp?v=1785563197&width=1200`, alt: "Élora formulated in France" },
-  { src: `${CDN}/Ingredients_Orion_1.png?v=1784541893&width=1200`, alt: "Élora fragrance ingredients" },
-  { src: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=1200`, alt: "Élora bottle detail" },
-  { src: `${CDN}/7th.webp?v=1782468881&width=1200`, alt: "Élora editorial shot" },
-  { src: `${CDN}/4_bottle_shot_2.webp?v=1782468881&width=1200`, alt: "Élora bottle shot" },
-  { src: `${CDN}/last_3.webp?v=1782476698&width=1200`, alt: "Élora campaign image" },
+const galleryBase = [
+  { file: `orion_main_1.png?v=1786629639`, alt: "Sarkar Élora 100ml parfum bottle" },
+  { file: `packaging_2.webp?v=1782468831`, alt: "Élora parfum packaging box" },
+  { file: `BB_ORION_NEW_1.png?v=1784828173`, alt: "Bhuvan Bam with Sarkar Élora" },
+  { file: `formulated_orion_1574ae34-e97d-46dc-9250-f33d23a7ad6a.webp?v=1785563197`, alt: "Élora formulated in France" },
+  { file: `Ingredients_Orion_1.png?v=1784541893`, alt: "Élora fragrance ingredients" },
+  { file: `2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501`, alt: "Élora bottle detail" },
+  { file: `7th.webp?v=1782468881`, alt: "Élora editorial shot" },
+  { file: `4_bottle_shot_2.webp?v=1782468881`, alt: "Élora bottle shot" },
+  { file: `last_3.webp?v=1782476698`, alt: "Élora campaign image" },
 ];
+
+const gallery = galleryBase.map((g) => ({
+  alt: g.alt,
+  src: `${CDN}/${g.file}&width=800`,
+  srcSet: `${CDN}/${g.file}&width=480 480w, ${CDN}/${g.file}&width=800 800w, ${CDN}/${g.file}&width=1200 1200w`,
+  thumb: `${CDN}/${g.file}&width=160`,
+  full: `${CDN}/${g.file}&width=1400`,
+}));
+
 
 const notes = [
   { img: `${CDN}/top_notes_orion.webp?v=1782469278&width=800`, label: "Top Notes", value: "Lavender, Lemon" },
