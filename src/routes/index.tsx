@@ -35,10 +35,11 @@ const PRICE = 1499;
 type CartLine = { name: string; img: string; price: number; qty: number };
 
 const products = [
-  { name: "Élora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=240` },
-  { name: "Aurelle (100ml)", img: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=240` },
-
+  { name: "Élora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=240`, tint: false },
+  { name: "Aurelle (100ml)", img: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=240`, tint: true },
 ];
+
+type Product = typeof products[number];
 
 const sections = [
   { id: "description", label: "Description" },
@@ -304,7 +305,7 @@ function Index() {
                       i === selected ? "border-primary" : "border-border hover:border-primary/60"
                     }`}
                   >
-                    <img src={v.img} alt={v.name} loading="lazy" decoding="async" width={240} height={240} className="aspect-square w-full object-contain" />
+                    <img src={v.img} alt={v.name} loading="lazy" decoding="async" width={240} height={240} className={`aspect-square w-full object-contain ${v.tint ? "aurelle-bottle" : ""}`} />
                     <span className="mt-1 block text-[0.7rem] text-muted-foreground">{v.name}</span>
                   </button>
                 ))}
