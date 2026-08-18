@@ -160,7 +160,7 @@ function Index() {
       if (found) {
         return prev.map((l) => (l.name === product.name ? { ...l, qty: l.qty + qty } : l));
       }
-      return [...prev, { name: product.name, img: product.img, price: PRICE, qty }];
+      return [...prev, { name: product.name, img: product.img, price: PRICE, qty, tint: product.tint }];
     });
     setAdded(true);
     setCartOpen(true);
@@ -479,7 +479,7 @@ function Index() {
                 <ul className="space-y-4">
                   {cart.map((l) => (
                     <li key={l.name} className="flex gap-3 border-b border-border pb-4">
-                      <img src={l.img} alt={l.name} className="h-20 w-20 rounded border border-border object-contain" />
+                      <img src={l.img} alt={l.name} className={`h-20 w-20 rounded border border-border object-contain ${l.tint ? "aurelle-bottle" : ""}`} />
                       <div className="flex-1">
                         <p className="text-sm">{l.name}</p>
                         <p className="mt-1 text-xs text-muted-foreground">₹ {l.price.toLocaleString("en-IN")}</p>
