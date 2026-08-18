@@ -4,15 +4,15 @@ import { useState } from "react";
 const CDN = "https://www.sarkar.store/cdn/shop/files";
 
 const gallery = [
-  { src: `${CDN}/orion_main_1.png?v=1786629639&width=1200`, alt: "Sarkar Orion 100ml parfum bottle" },
-  { src: `${CDN}/packaging_2.webp?v=1782468831&width=1200`, alt: "Orion parfum packaging box" },
-  { src: `${CDN}/BB_ORION_NEW_1.png?v=1784828173&width=1200`, alt: "Bhuvan Bam with Sarkar Orion" },
-  { src: `${CDN}/formulated_orion_1574ae34-e97d-46dc-9250-f33d23a7ad6a.webp?v=1785563197&width=1200`, alt: "Orion formulated in France" },
-  { src: `${CDN}/Ingredients_Orion_1.png?v=1784541893&width=1200`, alt: "Orion fragrance ingredients" },
-  { src: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=1200`, alt: "Orion bottle detail" },
-  { src: `${CDN}/7th.webp?v=1782468881&width=1200`, alt: "Orion editorial shot" },
-  { src: `${CDN}/4_bottle_shot_2.webp?v=1782468881&width=1200`, alt: "Orion bottle shot" },
-  { src: `${CDN}/last_3.webp?v=1782476698&width=1200`, alt: "Orion campaign image" },
+  { src: `${CDN}/orion_main_1.png?v=1786629639&width=1200`, alt: "Sarkar Élora 100ml parfum bottle" },
+  { src: `${CDN}/packaging_2.webp?v=1782468831&width=1200`, alt: "Élora parfum packaging box" },
+  { src: `${CDN}/BB_ORION_NEW_1.png?v=1784828173&width=1200`, alt: "Bhuvan Bam with Sarkar Élora" },
+  { src: `${CDN}/formulated_orion_1574ae34-e97d-46dc-9250-f33d23a7ad6a.webp?v=1785563197&width=1200`, alt: "Élora formulated in France" },
+  { src: `${CDN}/Ingredients_Orion_1.png?v=1784541893&width=1200`, alt: "Élora fragrance ingredients" },
+  { src: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=1200`, alt: "Élora bottle detail" },
+  { src: `${CDN}/7th.webp?v=1782468881&width=1200`, alt: "Élora editorial shot" },
+  { src: `${CDN}/4_bottle_shot_2.webp?v=1782468881&width=1200`, alt: "Élora bottle shot" },
+  { src: `${CDN}/last_3.webp?v=1782476698&width=1200`, alt: "Élora campaign image" },
 ];
 
 const notes = [
@@ -26,7 +26,7 @@ const PRICE = 1499;
 type CartLine = { name: string; img: string; price: number; qty: number };
 
 const products = [
-  { name: "Orion (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=400` },
+  { name: "Élora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=400` },
   { name: "Noble (100ml)", img: `${CDN}/noble_main.png?v=1786629640&width=400` },
   { name: "Regal (100ml)", img: `${CDN}/regal_main.png?v=1786629639&width=400` },
   { name: "Throne (100ml)", img: `${CDN}/throne_main.png?v=1786629639&width=400` },
@@ -41,23 +41,23 @@ const sections = [
 
 const faqs = [
   {
-    q: "How long does Orion last?",
-    a: "Orion is a parfum at 25% oil concentration so it stays close and lasts long up to 8 hours depending on your skin, the weather and how much you apply.",
+    q: "How long does Élora last?",
+    a: "Élora is a parfum at 25% oil concentration so it stays close and lasts long up to 8 hours depending on your skin, the weather and how much you apply.",
   },
   {
-    q: "What does Orion smell like?",
+    q: "What does Élora smell like?",
     a: "Fresh and clean. It opens with lemon and lavender then softens with geranium and rose before settling into sandalwood and musk. The kind of scent that keeps up with you.",
   },
   {
-    q: "Can I wear Orion every day?",
+    q: "Can I wear Élora every day?",
     a: "Yes. This is the everyday one fresh and easy and it carries you from work to travel and everything in between.",
   },
   {
     q: "Summer or winter?",
-    a: "Both. Orion is at its best on warm days. Its citrus opening feels light and cooling and it wears well all year.",
+    a: "Both. Élora is at its best on warm days. Its citrus opening feels light and cooling and it wears well all year.",
   },
   {
-    q: "When should I wear Orion?",
+    q: "When should I wear Élora?",
     a: "Any day you want to feel fresh and ahead. Mornings, work, travel or just the everyday.",
   },
 ];
@@ -70,13 +70,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Orion by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499.",
+          "Élora by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499.",
       },
       { property: "og:title", content: "sarkar orion perfume" },
       {
         property: "og:description",
         content:
-          "Orion by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499.",
+          "Élora by Sarkar, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,499.",
       },
       { property: "og:type", content: "product" },
       { property: "og:url", content: "/" },
@@ -99,7 +99,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Product",
-          name: "Orion (100ml)",
+          name: "Élora (100ml)",
           image: [`${CDN}/orion_main_1.png?v=1786629639&width=1200`],
           description:
             "Bright citrus opens with vibrant energy. Geranium brings balance, while musk and sandalwood leave a fresh, lasting trail.",
@@ -318,7 +318,7 @@ function Index() {
               sandalwood leave a fresh, lasting trail.
             </p>
             <p className="mt-4 text-muted-foreground">
-              Orion by Sarkar, from Bhuvan Bam's fragrance collection, is for the ones who move
+              Élora by Sarkar, from Bhuvan Bam's fragrance collection, is for the ones who move
               through every day with purpose and effortless confidence.
             </p>
           </div>
@@ -344,13 +344,13 @@ function Index() {
           <div className="mx-auto max-w-6xl px-5">
             <img
               src={`${CDN}/formulated_full_orion_1.webp?v=1785903788&width=1500`}
-              alt="Orion formulated with imported French oils"
+              alt="Élora formulated with imported French oils"
               loading="lazy"
               className="w-full rounded-lg"
             />
             <div className="mt-6 grid gap-6 md:grid-cols-3">
               {["1_2.webp?v=1782469376", "orion_2_ae21bdea-92d4-4b1b-a1f2-2d6ee141dfd5.webp?v=1785562318", "3_2.webp?v=1782469376"].map((f) => (
-                <img key={f} src={`${CDN}/${f}&width=900`} alt="Orion campaign imagery" loading="lazy" className="w-full rounded-lg" />
+                <img key={f} src={`${CDN}/${f}&width=900`} alt="Élora campaign imagery" loading="lazy" className="w-full rounded-lg" />
               ))}
             </div>
           </div>
@@ -363,7 +363,7 @@ function Index() {
             <h2 className="mt-4 mb-8 text-4xl">Spray, don't rub</h2>
             <img
               src={`${CDN}/Orion_6.png?v=1784547029&width=1920`}
-              alt="How to apply Orion parfum"
+              alt="How to apply Élora parfum"
               loading="lazy"
               className="w-full rounded-lg"
             />
