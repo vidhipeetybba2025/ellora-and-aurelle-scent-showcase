@@ -32,13 +32,14 @@ const notes = [
 
 const PRICE = 1499;
 
-type CartLine = { name: string; img: string; price: number; qty: number };
+type CartLine = { name: string; img: string; price: number; qty: number; tint: boolean };
 
 const products = [
-  { name: "Élora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=240` },
-  { name: "Aurelle (100ml)", img: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=240` },
-
+  { name: "Élora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=240`, tint: false },
+  { name: "Aurelle (100ml)", img: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=240`, tint: true },
 ];
+
+type Product = typeof products[number];
 
 const sections = [
   { id: "description", label: "Description" },
@@ -159,7 +160,7 @@ function Index() {
       if (found) {
         return prev.map((l) => (l.name === product.name ? { ...l, qty: l.qty + qty } : l));
       }
-      return [...prev, { name: product.name, img: product.img, price: PRICE, qty }];
+      return [...prev, { name: product.name, img: product.img, price: PRICE, qty, tint: product.tint }];
     });
     setAdded(true);
     setCartOpen(true);
@@ -304,7 +305,7 @@ function Index() {
                       i === selected ? "border-primary" : "border-border hover:border-primary/60"
                     }`}
                   >
-                    <img src={v.img} alt={v.name} loading="lazy" decoding="async" width={240} height={240} className="aspect-square w-full object-contain" />
+                    <img src={v.img} alt={v.name} loading="lazy" decoding="async" width={240} height={240} className={`aspect-square w-full object-contain ${v.tint ? "aurelle-bottle" : ""}`} />
                     <span className="mt-1 block text-[0.7rem] text-muted-foreground">{v.name}</span>
                   </button>
                 ))}
@@ -478,7 +479,7 @@ function Index() {
                 <ul className="space-y-4">
                   {cart.map((l) => (
                     <li key={l.name} className="flex gap-3 border-b border-border pb-4">
-                      <img src={l.img} alt={l.name} className="h-20 w-20 rounded border border-border object-contain" />
+                      <img src={l.img} alt={l.name} className={`h-20 w-20 rounded border border-border object-contain ${l.tint ? "aurelle-bottle" : ""}`} />
                       <div className="flex-1">
                         <p className="text-sm">{l.name}</p>
                         <p className="mt-1 text-xs text-muted-foreground">₹ {l.price.toLocaleString("en-IN")}</p>

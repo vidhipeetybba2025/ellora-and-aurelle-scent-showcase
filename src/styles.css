@@ -98,3 +98,7 @@
   );
   height: 1px;
 }
+
+@utility aurelle-bottle {
+  filter: sepia(0.45) hue-rotate(335deg) saturate(1.35) brightness(1.05);
+}
