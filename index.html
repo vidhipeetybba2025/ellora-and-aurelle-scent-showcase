@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orion — Elora & Aurelle</title>
+  <meta name="description" content="Two chess-inspired extrait de parfum creations by Orion.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111313;
+      --paper: #f4f0e7;
+      --muted: #aaa9a2;
+      --elora: #526bc9;
+      --aurelle: #cb894f;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--ink); }
+    body {
+      margin: 0; color: var(--paper); background: var(--ink);
+      font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: .06em;
+    }
+    .page { min-height: 100vh; padding: 28px clamp(22px, 5vw, 76px) 34px; display: flex; flex-direction: column; }
+    nav { display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; }
+    .mark { font-family: "Playfair Display", serif; font-size: 27px; letter-spacing: .1em; }
+    .edition { color: var(--muted); font-size: 10px; }
+    .hero { flex: 1; display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 30px; align-items: center; padding: 48px 0 30px; }
+    .intro { align-self: end; padding-bottom: 52px; }
+    .eyebrow { color: var(--muted); text-transform: uppercase; font-size: 10px; }
+    h1 { margin: 18px 0 20px; font: 500 clamp(46px, 6.3vw, 90px)/.94 "Playfair Display", serif; letter-spacing: -.055em; }
+    h1 em { color: #d5cdc0; }
+    .intro p { color: #c5c0b7; max-width: 290px; line-height: 1.8; font-size: 11px; }
+    .bottles { position: relative; min-height: 610px; display: flex; align-items: center; justify-content: center; gap: clamp(24px, 4vw, 75px); }
+    .bottles::before { content: ""; width: min(90%, 510px); aspect-ratio: 1; position: absolute; border-radius: 50%; background: radial-gradient(circle, #2b2d2b 0%, #171919 57%, transparent 69%); }
+    .bottle { position: relative; width: min(18vw, 170px); min-width: 126px; height: 432px; filter: drop-shadow(0 28px 20px rgba(0,0,0,.35)); }
+    .bottle::after { content: ""; position: absolute; left: 50%; bottom: -11px; width: 118%; height: 22px; transform: translateX(-50%); border-radius: 50%; background: rgba(0,0,0,.45); filter: blur(8px); z-index: -1; }
+    .crown { width: 38%; height: 48px; margin: 0 auto; border-radius: 8px 8px 4px 4px; background: linear-gradient(100deg, rgba(255,255,255,.42), transparent 35%, rgba(0,0,0,.22)), currentColor; border: 1px solid rgba(255,255,255,.2); }
+    .neck { width: 54%; height: 54px; margin: -2px auto 0; background: currentColor; clip-path: polygon(19% 0, 81% 0, 93% 100%, 7% 100%); }
+    .orb { width: 64%; aspect-ratio: 1; margin: -4px auto 0; border-radius: 50%; background: radial-gradient(circle at 32% 27%, rgba(255,255,255,.55), transparent 12%), linear-gradient(132deg, rgba(255,255,255,.25), transparent 35%), currentColor; border: 1px solid rgba(255,255,255,.26); }
+    .collar { width: 82%; height: 36px; margin: -5px auto 0; border-radius: 50% 50% 10px 10px; background: currentColor; }
+    .body { width: 100%; height: 222px; margin: -5px auto 0; border-radius: 47% 47% 17% 17% / 22% 22% 10% 10%; background: linear-gradient(105deg, rgba(255,255,255,.38), transparent 22%, rgba(0,0,0,.15) 78%), currentColor; border: 1px solid rgba(255,255,255,.22); position: relative; overflow: hidden; }
+    .body::before { content: "ORION"; position: absolute; top: 64px; left: 0; width: 100%; text-align: center; color: rgba(255,255,255,.9); font: 500 12px "Playfair Display", serif; letter-spacing: .19em; }
+    .body::after { content: attr(data-name); position: absolute; top: 89px; left: 0; width: 100%; text-align: center; color: rgba(255,255,255,.87); font-size: 9px; letter-spacing: .18em; }
+    .elora { color: var(--elora); transform: translateY(28px) rotate(-3deg); }
+    .aurelle { color: var(--aurelle); transform: translateY(-8px) rotate(3deg); }
+    .details { align-self: center; display: grid; gap: 42px; padding-left: 15px; }
+    .note { border-left: 1px solid #555; padding-left: 16px; }
+    .note strong { display: block; margin-bottom: 8px; font-family: "Playfair Display", serif; font-size: 25px; font-weight: 500; letter-spacing: -.03em; }
+    .note span { color: var(--muted); line-height: 1.7; font-size: 10px; }
+    footer { border-top: 1px solid #343636; padding-top: 16px; display: flex; justify-content: space-between; color: var(--muted); text-transform: uppercase; font-size: 9px; }
+    @media (max-width: 760px) {
+      .page { padding: 22px; }
+      .hero { display: flex; flex-direction: column; align-items: stretch; padding-top: 60px; }
+      .intro { align-self: auto; padding: 0; }
+      .bottles { order: -1; min-height: 410px; }
+      .bottle { transform: scale(.78); margin: -28px; }
+      .elora { transform: scale(.78) translateY(28px) rotate(-3deg); }
+      .aurelle { transform: scale(.78) translateY(-8px) rotate(3deg); }
+      .details { grid-template-columns: 1fr 1fr; padding: 0; gap: 18px; }
+      footer { margin-top: 42px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav><div class="mark">Orion</div><div class="edition">Collection I — 2026</div></nav>
+    <section class="hero">
+      <div class="intro">
+        <div class="eyebrow">Extrait de parfum</div>
+        <h1>A study in<br><em>quiet power.</em></h1>
+        <p>Two sculptural fragrances, cast in the language of the chessboard. Each move begins with intention.</p>
+      </div>
+      <div class="bottles" aria-label="Elora and Aurelle chess-piece perfume bottles">
+        <div class="bottle elora"><div class="crown"></div><div class="neck"></div><div class="orb"></div><div class="collar"></div><div class="body" data-name="ELORA"></div></div>
+        <div class="bottle aurelle"><div class="crown"></div><div class="neck"></div><div class="orb"></div><div class="collar"></div><div class="body" data-name="AURELLE"></div></div>
+      </div>
+      <div class="details">
+        <div class="note"><strong>Elora</strong><span>Cool iris · cedarwood · white musk<br>Electric cobalt glass</span></div>
+        <div class="note"><strong>Aurelle</strong><span>Saffron · amber · smoked vanilla<br>Burnished amber glass</span></div>
+      </div>
+    </section>
+    <footer><span>Made for the considered move</span><span>© Orion Maison</span></footer>
+  </main>
+</body>
+</html>
