@@ -26,10 +26,9 @@ const PRICE = 1499;
 type CartLine = { name: string; img: string; price: number; qty: number };
 
 const products = [
-  { name: "Élora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=400` },
-  { name: "Noble (100ml)", img: `${CDN}/noble_main.png?v=1786629640&width=400` },
-  { name: "Regal (100ml)", img: `${CDN}/regal_main.png?v=1786629639&width=400` },
-  { name: "Throne (100ml)", img: `${CDN}/throne_main.png?v=1786629639&width=400` },
+  { name: "Élora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=240` },
+  { name: "Aurelle (100ml)", img: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=240` },
+
 ];
 
 const sections = [
