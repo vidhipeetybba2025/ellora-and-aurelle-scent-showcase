@@ -4,15 +4,15 @@ import { useState } from "react";
 const CDN = "https://www.sarkar.store/cdn/shop/files";
 
 const galleryBase = [
-  { file: `orion_main_1.png?v=1786629639`, alt: "Orion Elora 100ml parfum bottle" },
-  { file: `packaging_2.webp?v=1782468831`, alt: "Elora parfum packaging box" },
-  { file: `BB_ORION_NEW_1.png?v=1784828173`, alt: "Bhuvan Bam with Orion Elora" },
-  { file: `formulated_orion_1574ae34-e97d-46dc-9250-f33d23a7ad6a.webp?v=1785563197`, alt: "Elora formulated in France" },
-  { file: `Ingredients_Orion_1.png?v=1784541893`, alt: "Elora fragrance ingredients" },
-  { file: `2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501`, alt: "Elora bottle detail" },
-  { file: `7th.webp?v=1782468881`, alt: "Elora editorial shot" },
-  { file: `4_bottle_shot_2.webp?v=1782468881`, alt: "Elora bottle shot" },
-  { file: `last_3.webp?v=1782476698`, alt: "Elora campaign image" },
+  { file: `orion_main_1.png?v=1786629639`, alt: "Ellora 100ml parfum bottle" },
+  { file: `packaging_2.webp?v=1782468831`, alt: "Ellora parfum packaging box" },
+  { file: `BB_ORION_NEW_1.png?v=1784828173`, alt: "Bhuvan Bam with Orion Ellora" },
+  { file: `formulated_orion_1574ae34-e97d-46dc-9250-f33d23a7ad6a.webp?v=1785563197`, alt: "Ellora formulated in France" },
+  { file: `Ingredients_Orion_1.png?v=1784541893`, alt: "Ellora fragrance ingredients" },
+  { file: `2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501`, alt: "Ellora bottle detail" },
+  { file: `7th.webp?v=1782468881`, alt: "Ellora editorial shot" },
+  { file: `4_bottle_shot_2.webp?v=1782468881`, alt: "Ellora bottle shot" },
+  { file: `last_3.webp?v=1782476698`, alt: "Ellora campaign image" },
 ];
 
 const gallery = galleryBase.map((g) => ({
@@ -35,16 +35,16 @@ const PRICE = 1500;
 type CartLine = { name: string; img: string; price: number; qty: number; tint: boolean };
 
 const products = [
-  { name: "Elora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=240`, tint: false, piece: "queen" },
+  { name: "Ellora (100ml)", img: `${CDN}/orion_main_1.png?v=1786629639&width=240`, tint: false, piece: "queen" },
   { name: "Aurelle (100ml)", img: `${CDN}/2_0c83dd12-ed3d-4d50-a292-0f0871bff96b.webp?v=1785562501&width=240`, tint: true, piece: "bishop" },
 ];
 
 type Product = (typeof products)[number];
 
 function ChessBottle({ product, compact = false }: { product: Product; compact?: boolean }) {
-  const isElora = product.piece === "queen";
-  const glass = isElora ? "#176d63" : "#a62943";
-  const highlight = isElora ? "#75c1aa" : "#f07c92";
+  const isEllora = product.piece === "queen";
+  const glass = isEllora ? "#176d63" : "#a62943";
+  const highlight = isEllora ? "#75c1aa" : "#f07c92";
 
   return (
     <div className={compact ? "relative mx-auto flex h-32 items-end justify-center overflow-hidden rounded-lg border border-border bg-card" : "relative mx-auto flex h-72 items-end justify-center overflow-hidden rounded-lg border border-border bg-card"}>
@@ -52,19 +52,19 @@ function ChessBottle({ product, compact = false }: { product: Product; compact?:
       <div className={compact ? "relative flex scale-[0.48] origin-bottom flex-col items-center" : "relative flex scale-[0.9] origin-bottom flex-col items-center"}>
         <div
           aria-hidden="true"
-          className={isElora ? "relative z-10 flex h-16 w-16 items-center justify-center rounded-t-lg text-5xl leading-none" : "relative z-10 flex h-16 w-16 items-center justify-center rounded-full text-5xl leading-none"}
+          className={isEllora ? "relative z-10 flex h-16 w-16 items-center justify-center rounded-t-lg text-5xl leading-none" : "relative z-10 flex h-16 w-16 items-center justify-center rounded-full text-5xl leading-none"}
           style={{ background: glass, color: highlight, boxShadow: "inset 10px 8px 18px rgba(255,255,255,0.28), inset -12px -10px 18px rgba(0,0,0,0.27)" }}
         >
-          {isElora ? "♛" : "♝"}
-          {!isElora && <span className="absolute h-14 w-px rotate-45 bg-black/40" />}
+          {isEllora ? "♛" : "♝"}
+          {!isEllora && <span className="absolute h-14 w-px rotate-45 bg-black/40" />}
         </div>
         <div className="h-10 w-10" style={{ background: glass }} />
         <div className="relative -mt-1 h-28 w-32 overflow-hidden rounded-[48%_48%_16%_16%] border border-white/25" style={{ background: glass, boxShadow: "inset 14px 6px 20px rgba(255,255,255,0.25), inset -15px -8px 22px rgba(0,0,0,0.22)" }}>
-          <span className="absolute top-8 left-0 w-full text-center font-serif text-sm tracking-[0.28em] text-white">ORION</span>
-          <span className="absolute top-14 left-0 w-full text-center text-[0.55rem] tracking-[0.22em] text-white/85">{isElora ? "ELORA" : "AURELLE"}</span>
+          <span className="absolute top-8 left-0 w-full text-center font-serif text-sm tracking-[0.22em] text-white">{isElora ? "ELLORA" : "AURELLE"}</span>
+          <span className="absolute top-14 left-0 w-full text-center text-[0.55rem] tracking-[0.22em] text-white/85">{isEllora ? "ELORA" : "AURELLE"}</span>
         </div>
       </div>
-      <span className="absolute bottom-3 text-[0.58rem] tracking-[0.2em] text-muted-foreground uppercase">{isElora ? "Emerald Queen" : "Crimson Bishop"}</span>
+      <span className="absolute bottom-3 text-[0.58rem] tracking-[0.2em] text-muted-foreground uppercase">{isEllora ? "Emerald Queen" : "Crimson Bishop"}</span>
     </div>
   );
 }
@@ -78,23 +78,23 @@ const sections = [
 
 const faqs = [
   {
-    q: "How long does Elora last?",
-    a: "Elora is a parfum at 25% oil concentration so it stays close and lasts long up to 8 hours depending on your skin, the weather and how much you apply.",
+    q: "How long does Ellora last?",
+    a: "Ellora is a parfum at 25% oil concentration so it stays close and lasts long up to 8 hours depending on your skin, the weather and how much you apply.",
   },
   {
-    q: "What does Elora smell like?",
+    q: "What does Ellora smell like?",
     a: "Fresh and clean. It opens with lemon and lavender then softens with geranium and rose before settling into sandalwood and musk. The kind of scent that keeps up with you.",
   },
   {
-    q: "Can I wear Elora every day?",
+    q: "Can I wear Ellora every day?",
     a: "Yes. This is the everyday one fresh and easy and it carries you from work to travel and everything in between.",
   },
   {
     q: "Summer or winter?",
-    a: "Both. Elora is at its best on warm days. Its citrus opening feels light and cooling and it wears well all year.",
+    a: "Both. Ellora is at its best on warm days. Its citrus opening feels light and cooling and it wears well all year.",
   },
   {
-    q: "When should I wear Elora?",
+    q: "When should I wear Ellora?",
     a: "Any day you want to feel fresh and ahead. Mornings, work, travel or just the everyday.",
   },
 ];
@@ -103,17 +103,17 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Elora by Orion — Fresh Unisex Parfum 100ml" },
+      { title: "Ellora — Fresh Unisex Parfum 100ml" },
       {
         name: "description",
         content:
-          "Elora by Orion, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,500.",
+          "Ellora, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,500.",
       },
-      { property: "og:title", content: "Elora by Orion — Fresh Unisex Parfum 100ml" },
+      { property: "og:title", content: "Ellora — Fresh Unisex Parfum 100ml" },
       {
         property: "og:description",
         content:
-          "Elora by Orion, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,500.",
+          "Ellora, from Bhuvan Bam's fragrance collection. A fresh unisex parfum of lemon, lavender, geranium and sandalwood. 100ml at ₹1,500.",
       },
       { property: "og:type", content: "product" },
       { property: "og:url", content: "/" },
@@ -145,11 +145,11 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Product",
-          name: "Elora (100ml)",
+          name: "Ellora (100ml)",
           image: [`${CDN}/orion_main_1.png?v=1786629639&width=1200`],
           description:
             "Bright citrus opens with vibrant energy. Geranium brings balance, while musk and sandalwood leave a fresh, lasting trail.",
-          brand: { "@type": "Brand", name: "Orion" },
+          brand: { "@type": "Brand", name: "Ellora & Aurelle" },
           offers: {
             "@type": "Offer",
             price: "1500",
@@ -211,7 +211,7 @@ function Index() {
       <header className="sticky top-0 z-20 border-b border-border/60 bg-background/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="font-display text-2xl tracking-[0.4em] text-primary">
-            ORION
+            ELLORA & AURELLE
           </button>
           <nav className="hidden gap-8 text-xs tracking-[0.18em] uppercase text-muted-foreground md:flex">
             {sections.map((s) => (
@@ -369,7 +369,7 @@ function Index() {
               sandalwood leave a fresh, lasting trail.
             </p>
             <p className="mt-4 text-muted-foreground">
-              Elora by Orion, from Bhuvan Bam's fragrance collection, is for the ones who move
+              Ellora is for the ones who move
               through every day with purpose and effortless confidence.
             </p>
           </div>
@@ -395,13 +395,13 @@ function Index() {
           <div className="mx-auto max-w-6xl px-5">
             <img
               src={`${CDN}/formulated_full_orion_1.webp?v=1785903788&width=1000`}
-              alt="Elora formulated with imported French oils"
+              alt="Ellora formulated with imported French oils"
               loading="lazy"
               className="w-full rounded-lg"
             />
             <div className="mt-6 grid gap-6 md:grid-cols-3">
               {["1_2.webp?v=1782469376", "orion_2_ae21bdea-92d4-4b1b-a1f2-2d6ee141dfd5.webp?v=1785562318", "3_2.webp?v=1782469376"].map((f) => (
-                <img key={f} src={`${CDN}/${f}&width=600`} alt="Elora campaign imagery" loading="lazy" className="w-full rounded-lg" />
+                <img key={f} src={`${CDN}/${f}&width=600`} alt="Ellora campaign imagery" loading="lazy" className="w-full rounded-lg" />
               ))}
             </div>
           </div>
@@ -414,7 +414,7 @@ function Index() {
             <h2 className="mt-4 mb-8 text-4xl">Spray, don't rub</h2>
             <img
               src={`${CDN}/Orion_6.png?v=1784547029&width=1200`}
-              alt="How to apply Elora parfum"
+              alt="How to apply Ellora parfum"
               loading="lazy"
               className="w-full rounded-lg"
             />
@@ -452,7 +452,7 @@ function Index() {
         <section className="border-t border-border/60 py-16">
           <div className="mx-auto max-w-3xl px-5">
             <p className="eyebrow">Legal Information</p>
-            <h2 className="mt-4 text-3xl">ORION The One &amp; Only: Parfum</h2>
+            <h2 className="mt-4 text-3xl">Ellora &amp; Aurelle: Parfum</h2>
             <dl className="mt-6 space-y-3 text-sm text-muted-foreground">
               <div><dt className="inline text-foreground">Alcohol Content: </dt><dd className="inline">Ethyl Alcohol Content: [95% v/v] Content: 75% w/w denatured with t-Butyl Alcohol and Denatonium Benzoate.</dd></div>
               <div><dt className="inline text-foreground">Ingredients: </dt><dd className="inline">Alcohol Denat., Fragrance</dd></div>
@@ -468,7 +468,7 @@ function Index() {
 
       <footer className="border-t border-border/60 py-10">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-5">
-          <span className="font-display text-xl tracking-[0.4em] text-primary">ORION</span>
+          <span className="font-display text-xl tracking-[0.18em] text-primary">ELLORA &amp; AURELLE</span>
           <p className="text-xs text-muted-foreground">
             <a href="mailto:support@sarkar.store" className="hover:text-foreground">support@sarkar.store</a>
             {" · "}
